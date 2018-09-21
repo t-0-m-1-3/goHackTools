@@ -22,17 +22,17 @@ var (
 )
 
 func main() {
-	// открытие интерфейса
+	// open interface
 	handle, err = pcap.OpenLive(device, snapshot_len, promiscuous, timeout)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer handle.Close()
 
-	// просмотр всех пакетов
+	// view all packages
 	packetSource := gopacket.NewPacketSource(handle, handle.LinkType())
 	for packet := range packetSource.Packets() {
-		// от кого кому
+		// from whom to whome
 		if net := packet.NetworkLayer(); net != nil {
 			src, dst := net.NetworkFlow().Endpoints()
 			fmt.Printf("[+] Src: %v, --> Dst: %v \n", src, dst)

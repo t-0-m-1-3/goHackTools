@@ -11,9 +11,9 @@ import (
 )
 
 func main() {
-	// справка
+	// reference
 	if len(os.Args) != 2 {
-		fmt.Fprintf(os.Stderr, "Использование: %s ip-addr\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Scanning Address: %s ip-addr\n", os.Args[0])
 		os.Exit(1)
 	}
 
@@ -24,7 +24,7 @@ func main() {
 	c := func(ports int) {
 		conn, err := net.DialTimeout("tcp", target+":"+strconv.Itoa(ports), time.Duration(1)*time.Second)
 		if err == nil {
-			// отправка текста
+			// sending text
 			fmt.Fprintf(conn, "HELLO\r\n")
 
 			buf := make([]byte, 0, 4096) // big buffer

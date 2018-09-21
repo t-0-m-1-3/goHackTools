@@ -12,25 +12,25 @@ import (
 )
 
 func main() {
-	// где находится ssh
+	// where is ssh
 	ssh, err := exec.LookPath("ssh")
 	if err != nil {
 		log.Println(err)
 	}
 
-	// новое подключение
+	// new connection
 	child, _ := gexpect.NewSubProcess(ssh, "user@127.0.0.1")
 	if err := child.Start(); err != nil {
 		fmt.Println(err)
 	}
-	// закрытие соединения
+	// close the connection
 	defer child.Close()
-	// ввод пароля
+	// password input
 	if idx, _ := child.ExpectTimeout(0*time.Second, regexp.MustCompile("password:")); idx >= 0 {
 		child.SendLine("pass")
 	}
 
-	// ввод команды
+	// command input
 	child.SendLine("sudo cat /etc/shadow | grep root")
 
 	// время ожидания

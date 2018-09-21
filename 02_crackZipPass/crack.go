@@ -20,22 +20,22 @@ func init() {
 }
 
 func main() {
-	// разбор флагов
+	// parse flags
 	flag.Parse()
 
-	// вывод справки
+	// output the help
 	if zipfile == "" || dictionary == "" {
 		println("Please " + os.Args[0] + " -h")
 		os.Exit(0)
 	}
 
-	// запароленный архив
+	// open the password protected archive
 	zipr, err := zip.OpenReader(zipfile)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// парольный словарь
+	// open the dictionary file
 	// ../00_addMaterials/dict.txt
 	dictFile, err := os.Open(dictionary)
 	if err != nil {
@@ -49,7 +49,7 @@ func main() {
 		for _, z := range zipr.File {
 			z.SetPassword(pass)
 			_, err := z.Open()
-			// если все ок
+			// if  ок
 			if err == nil {
 				println("[+] Found password")
 				println("[+] Password = " + pass)

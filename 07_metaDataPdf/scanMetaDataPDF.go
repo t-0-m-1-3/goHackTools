@@ -11,9 +11,9 @@ import (
 )
 
 func main() {
-	// справка
+	// reference
 	if len(os.Args) != 2 {
-		fmt.Fprintf(os.Stderr, "Использование: %s FILE.pdf\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Using: %s FILE.pdf\n", os.Args[0])
 		os.Exit(1)
 	}
 

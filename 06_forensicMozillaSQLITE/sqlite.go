@@ -22,7 +22,7 @@ func main() {
 		}
 	*/
 
-	// история посещений
+	// history of visits
 	database, _ := sql.Open("sqlite3", "./places.sqlite")
 	rows, _ := database.Query("select url, datetime(visit_date/1000000, 'unixepoch') from moz_places, moz_historyvisits where visit_count > 0 and moz_places.id==moz_historyvisits.place_id;")
 	var url, date string

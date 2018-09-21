@@ -20,15 +20,15 @@ var (
 )
 
 func main() {
-	// справка
+	// reference
 	if len(os.Args) != 2 {
-		fmt.Fprintf(os.Stderr, "Использование: %s PCAP_FILE\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Using: %s PCAP_FILE\n", os.Args[0])
 		os.Exit(1)
 	}
 
 	pcapFile = os.Args[1]
 
-	// открытие файла
+	// open the file
 	handle, err = pcap.OpenOffline(pcapFile)
 	if err != nil {
 		log.Fatal(err)
@@ -46,10 +46,10 @@ func main() {
 	allIP := make(map[string]int)
 	allKml := ""
 
-	// просмотр всех пакетов
+	// view all packages
 	packetSource := gopacket.NewPacketSource(handle, handle.LinkType())
 	for packet := range packetSource.Packets() {
-		// от кого кому
+		// from whom to whom
 		if net := packet.NetworkLayer(); net != nil {
 			src, dst := net.NetworkFlow().Endpoints()
 			allIP[src.String()]++
@@ -57,7 +57,7 @@ func main() {
 		}
 	}
 
-	// все IP
+	// all IP
 	for k, _ := range allIP {
 		kml, err := recKml(k)
 		if err != nil {

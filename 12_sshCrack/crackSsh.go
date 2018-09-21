@@ -10,7 +10,7 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
-// HostInfo - информация о хосте
+// HostInfo - information about the host
 type HostInfo struct {
 	host   string
 	port   string
@@ -21,7 +21,7 @@ type HostInfo struct {
 
 func main() {
 	if len(os.Args) != 4 {
-		fmt.Fprintf(os.Stderr, "Использование: %s IPList userDic passDic\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Using: %s IPList userDic passDic\n", os.Args[0])
 		os.Exit(1)
 	} else {
 		iplist := os.Args[1]
@@ -32,7 +32,7 @@ func main() {
 	}
 }
 
-// Prepare - подготовка к сканированию
+// Prepare - preparing for scanning
 func Prepare(iplist, userDict, passDict string) (sliceIPList, sliceUser, slicePass []string) {
 	iplistFile, _ := os.Open(iplist)
 	defer iplistFile.Close()
@@ -61,7 +61,7 @@ func Prepare(iplist, userDict, passDict string) (sliceIPList, sliceUser, slicePa
 	return sliceIPList, sliceUser, slicePass
 }
 
-// Scan - сканирование
+// Scan - scanning
 func Scan(sliceIPList, sliceUser, slicePass []string) {
 	for _, hostPort := range sliceIPList {
 
@@ -88,7 +88,7 @@ func Scan(sliceIPList, sliceUser, slicePass []string) {
 	}
 }
 
-// Crack - подбор пароля
+// Crack - password selection
 func Crack(HostInfo HostInfo) bool {
 	host := HostInfo.host
 	port := HostInfo.port

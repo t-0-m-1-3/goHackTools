@@ -26,23 +26,23 @@ func init() {
 }
 
 func main() {
-	// разбор флагов
+	// parse the flass
 	flag.Parse()
 
-	// вывод справки
+	// print help
 	if passfile == "" || dictionary == "" {
 		println("Please " + os.Args[0] + " -h")
 		os.Exit(0)
 	}
 
-	// открываем shadow
+	// open the shadow file
 	passFile, err := os.Open(passfile)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	defer passFile.Close()
 
-	// парольный словарь
+	// open the dictionary file
 	dictFile, err := ioutil.ReadFile(dictionary)
 	if err != nil {
 		log.Fatalln(err)
@@ -50,7 +50,7 @@ func main() {
 
 	passDict := strings.Split(string(dictFile), "\n")
 
-	// построчно
+	// for loop through row by row
 	scanner := bufio.NewScanner(passFile)
 	for scanner.Scan() {
 		j := scanner.Text()
@@ -75,7 +75,7 @@ func testPass(cryptPass string, passWord string) string {
 
 	cryptWord, err := crypt.Crypt(passWord, salt)
 	if err != nil {
-		log.Fatalf("Ошибка SHA: %v", err)
+		log.Fatalf("Error SHA: %v", err)
 	}
 	// если найден !
 	if cryptWord == cryptPass {
